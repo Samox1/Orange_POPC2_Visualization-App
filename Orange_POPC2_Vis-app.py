@@ -119,7 +119,7 @@ else:
     dane_z_orange, Gminy_ALL, time_update, jaktorow_position, files_old = Import_Data_Orange_Fiber(plik, files_old_web)
     time_and_position = pd.DataFrame([[time_update, jaktorow_position]], columns=['time', 'position'])
     #print(time_and_position)
-    store.remove('Gminy_ALL', 'time_and_position', 'files_old_web', 'dane_z_orange')
+    #store.remove('Gminy_ALL', 'time_and_position', 'files_old_web', 'dane_z_orange')
     store['Gminy_ALL'] = pd.DataFrame(Gminy_ALL, columns=['Gminy_ALL'])
     store['time_and_position'] = time_and_position
     store['files_old_web'] = files_old
