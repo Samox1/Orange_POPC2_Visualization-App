@@ -77,14 +77,13 @@ def Import_Data_Orange_Fiber(data_from_website, files_on_orange_website_new, fil
                     change_col_dlug = temp_data_correct['Długość'].copy()
                     temp_data_correct['Szerokość'] = change_col_dlug
                     temp_data_correct['Długość'] = change_col_szer
+                    del change_col_dlug
+                    del change_col_szer
 
                 data_from_website = data_from_website.append(temp_data_correct, ignore_index=True, sort=False)
 
         del temp_data
         del temp_data_correct
-        del change_col_dlug
-        del change_col_szer
-
         del orange_server
         del link_download
 
