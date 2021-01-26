@@ -19,6 +19,7 @@ from scrapy import Selector
 import requests
 import datetime
 import os
+import re
 #import numpy                # numpy == 1.19.3   (with 1.19.4 there is a bug on Windows)
 
 
@@ -51,14 +52,21 @@ def Import_Data_Orange_Fiber(data_from_website, files_on_orange_website_new, fil
 
         orange_server = 'https://www.hurt-orange.pl'
         print('*** Extract files names from Orange website ***')
+        #print('*** New files: ' + str(len(files_diff_2)) + ' ***')
 
-        files_exclude = ('/wp-content/uploads/2020/11/lista-obszarow-i-miejscowosci-objetych-planami-realizacji-orange-w-ramach-ii-konkursu-popc.xlsx',
-                         '/wp-content/uploads/2020/09/lista-punktow-adresowych-ii-konkurs-popc-1.xlsx',
-                         '/wp-content/uploads/2020/12/lista-punktow-adresowych-gotowych-sprzedazowo-popc-nabor-ii-1.xlsx')
+        files_exclude = (r".lista-obszarow-i-miejscowosci-objetych-planami-realizacji-orange-w-ramach-ii-konkursu-popc.",
+                         r".lista-punktow-adresowych-ii-konkurs-popc-1.",
+                         r".lista-punktow-adresowych-gotowych-sprzedazowo-popc-nabor-ii.")
+
 
 
         for i_files in files_diff_2.values:
-            if i_files not in files_exclude:
+
+            #print(i_files)
+            #print([bool(re.search(x, str(i_files))) for x in files_exclude])
+
+            if (not any([bool(re.search(x, str(i_files))) for x in files_exclude])):
+
                 link_download = orange_server + i_files
 
                 print('X: ' + link_download[0])
@@ -87,10 +95,12 @@ def Import_Data_Orange_Fiber(data_from_website, files_on_orange_website_new, fil
 
                 data_from_website = data_from_website.append(temp_data_correct, ignore_index=True, sort=False)
 
-        del temp_data
-        del temp_data_correct
+                del temp_data
+                del temp_data_correct
+                del link_download
+
         del orange_server
-        del link_download
+
 
         data_from_website['Gmina'] = data_from_website['Gmina'].str.upper()
         gminy_data = data_from_website['Gmina'].unique()
