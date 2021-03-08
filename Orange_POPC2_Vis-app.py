@@ -72,7 +72,9 @@ def Import_Data_Orange_Fiber(data_from_website, files_on_orange_website_new, fil
                 print('X: ' + link_download[0])
 
                 temp_data = pd.read_excel(link_download[0], header=[2, ]).iloc[2:, 0:]
-                temp_data = temp_data[['Nazwa obszaru', 'Identyfikator budynku', 'Województwo', 'Powiat', 'Gmina', 'Kod TERC', 'Miejscowość', 'SIMC', 'Ulica', 'Kod ULIC', 'Nr ', 'Szerokość', 'Długość', 'SFH/MFH', 'Dostępna prędkość [Mb]', 'Liczba lokali']]
+                temp_data = temp_data[['Nazwa obszaru', 'Identyfikator budynku', 'Województwo', 'Powiat', 'Gmina', 'Kod TERC', 'Miejscowość', 'SIMC', 'Ulica', 'Kod ULIC', 'Nr ', 'Szerokość', 'Długość', 'Dostępna prędkość [Mb]', 'Liczba lokali']]
+
+
                 temp_data = temp_data.drop_duplicates()
 
                 temp_data_correct = temp_data.copy()
